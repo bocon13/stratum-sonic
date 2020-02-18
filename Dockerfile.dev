@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM stratumproject/build:build
+FROM stratum-sonic:t11
 
 ARG USER_NAME=default
 ARG USER_ID=1000

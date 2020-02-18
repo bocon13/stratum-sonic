@@ -1,0 +1,29 @@
+
+# cd stratum-sonic/SAI-P4-BM/p4-switch/sai-p4-target
+
+# Compile SAI router
+docker run --rm -v `pwd`:/workdir -w /workdir opennetworking/p4c:stable \
+  p4c-bm2-ss --arch v1model \
+  -o p4src/router-16/sai_router.json \
+  --p4runtime-files p4src/router-16/sai_router_p4info.txt \
+  --Wdisable=unsupported \
+  p4src/router-16/sai_router.p4
+
+# Start Stratum
+docker run --privileged --rm -it -v /tmp/mn-stratum:/tmp -p 50001:50001 opennetworking/mn-stratum
+
+# Push the pipeline config for SAI router
+docker run --rm -it --network host -v `pwd`:/p4 p4lang/p4runtime-sh \
+  --grpc-addr localhost:50001 --device-id 1 --election-id 0,1 \
+  --config /p4/p4src/router-16/sai_router_p4info.txt,/p4/p4src/router-16/sai_router.json
+
+
+# Start dev environment
+docker run --rm -it \
+  -v `pwd`:/stratum \
+  -v `pwd`/bzl-cache:/bazel \
+  -w /stratum \
+  stratum-sonic bash
+
+# Build the SAI adapter using Bazel
+bazel build -s //SAI-P4-BM/sai_adapter:sai_adapter

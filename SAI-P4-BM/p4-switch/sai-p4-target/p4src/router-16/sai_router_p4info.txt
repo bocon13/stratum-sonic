@@ -1,0 +1,582 @@
+pkg_info {
+  arch: "v1model"
+}
+tables {
+  preamble {
+    id: 33591382
+    name: "sai_ingress.control_1q_uni_router.table_ingress_l3_if"
+    alias: "table_ingress_l3_if"
+  }
+  match_fields {
+    id: 1
+    name: "standard_metadata.ingress_port"
+    bitwidth: 9
+    match_type: EXACT
+  }
+  match_fields {
+    id: 2
+    name: "hdr.vlan.vid"
+    bitwidth: 12
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16833138
+  }
+  action_refs {
+    id: 16804562
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 10
+}
+tables {
+  preamble {
+    id: 33588230
+    name: "sai_ingress.control_1q_uni_router.table_ingress_vrf"
+    alias: "table_ingress_vrf"
+  }
+  match_fields {
+    id: 1
+    name: "sai_metadata.ingress_rif"
+    bitwidth: 8
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16805694
+  }
+  action_refs {
+    id: 16804562
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 12
+}
+tables {
+  preamble {
+    id: 33573262
+    name: "sai_ingress.control_1q_uni_router.table_pre_l3_trap"
+    alias: "table_pre_l3_trap"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.vlan.etherType"
+    bitwidth: 16
+    match_type: TERNARY
+  }
+  match_fields {
+    id: 2
+    name: "hdr.ipv4.dstAddr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  match_fields {
+    id: 3
+    name: "hdr.arp_ipv4.opcode"
+    bitwidth: 16
+    match_type: TERNARY
+  }
+  action_refs {
+    id: 16795260
+  }
+  action_refs {
+    id: 16804562
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33574916
+    name: "sai_ingress.control_1q_uni_router.table_router"
+    alias: "table_router"
+  }
+  match_fields {
+    id: 1
+    name: "sai_metadata.ingress_vrf"
+    bitwidth: 8
+    match_type: EXACT
+  }
+  match_fields {
+    id: 2
+    name: "hdr.ipv4.dstAddr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  action_refs {
+    id: 16829546
+  }
+  action_refs {
+    id: 16815648
+  }
+  action_refs {
+    id: 16829090
+  }
+  action_refs {
+    id: 16831487
+  }
+  action_refs {
+    id: 16804562
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33597781
+    name: "sai_ingress.control_1q_uni_router.table_next_hop_group"
+    alias: "table_next_hop_group"
+  }
+  match_fields {
+    id: 1
+    name: "sai_metadata.next_hop_group_id"
+    bitwidth: 3
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16829546
+  }
+  action_refs {
+    id: 16804562
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 16
+}
+tables {
+  preamble {
+    id: 33572483
+    name: "sai_ingress.control_1q_uni_router.table_ip2me_trap"
+    alias: "table_ip2me_trap"
+  }
+  match_fields {
+    id: 1
+    name: "sai_metadata.srcPort"
+    bitwidth: 16
+    match_type: EXACT
+  }
+  match_fields {
+    id: 2
+    name: "sai_metadata.dstPort"
+    bitwidth: 16
+    match_type: EXACT
+  }
+  match_fields {
+    id: 3
+    name: "hdr.ipv4.protocol"
+    bitwidth: 8
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16795260
+  }
+  action_refs {
+    id: 16804562
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33575201
+    name: "sai_ingress.control_1q_uni_router.table_next_hop"
+    alias: "table_next_hop"
+  }
+  match_fields {
+    id: 1
+    name: "sai_metadata.next_hop_id"
+    bitwidth: 8
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16814427
+  }
+  action_refs {
+    id: 16804562
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 128
+}
+tables {
+  preamble {
+    id: 33565696
+    name: "sai_ingress.control_1q_uni_router.table_l3_trap_id"
+    alias: "table_l3_trap_id"
+  }
+  match_fields {
+    id: 1
+    name: "sai_metadata.trap_id"
+    bitwidth: 11
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16808708
+  }
+  action_refs {
+    id: 16778660
+  }
+  action_refs {
+    id: 16831062
+  }
+  action_refs {
+    id: 16804562
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33606658
+    name: "sai_egress.control_cpu.table_cpu_forward"
+    alias: "table_cpu_forward"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.cpu_header.$valid$"
+    bitwidth: 1
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16817746
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33590303
+    name: "sai_egress.table_egress_clone_internal"
+    alias: "table_egress_clone_internal"
+  }
+  match_fields {
+    id: 1
+    name: "standard_metadata.instance_type"
+    bitwidth: 32
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16831062
+  }
+  action_refs {
+    id: 16782568
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33573352
+    name: "sai_egress.table_ttl"
+    alias: "table_ttl"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ipv4.ttl"
+    bitwidth: 8
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16800710
+  }
+  action_refs {
+    id: 16837868
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33555847
+    name: "sai_egress.table_neighbor"
+    alias: "table_neighbor"
+  }
+  match_fields {
+    id: 1
+    name: "sai_metadata.egress_rif"
+    bitwidth: 8
+    match_type: EXACT
+  }
+  match_fields {
+    id: 2
+    name: "sai_metadata.next_hop_dst_ip"
+    bitwidth: 32
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16807652
+  }
+  action_refs {
+    id: 16842238
+  }
+  action_refs {
+    id: 16837868
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33557515
+    name: "sai_egress.table_egress_L3_if"
+    alias: "table_egress_L3_if"
+  }
+  match_fields {
+    id: 1
+    name: "sai_metadata.egress_rif"
+    bitwidth: 8
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16790937
+  }
+  action_refs {
+    id: 16837868
+  }
+  action_refs {
+    id: 16800567
+    annotations: "@defaultonly"
+    scope: DEFAULT_ONLY
+  }
+  size: 10
+}
+actions {
+  preamble {
+    id: 16800567
+    name: "NoAction"
+    alias: "NoAction"
+  }
+}
+actions {
+  preamble {
+    id: 16831062
+    name: "_nop"
+    alias: "_nop"
+  }
+}
+actions {
+  preamble {
+    id: 16804562
+    name: "sai_ingress.control_1q_uni_router._drop"
+    alias: "control_1q_uni_router._drop"
+  }
+}
+actions {
+  preamble {
+    id: 16833138
+    name: "sai_ingress.control_1q_uni_router.action_set_irif"
+    alias: "action_set_irif"
+  }
+  params {
+    id: 1
+    name: "ingress_rif"
+    bitwidth: 8
+  }
+}
+actions {
+  preamble {
+    id: 16805694
+    name: "sai_ingress.control_1q_uni_router.action_set_vrf"
+    alias: "action_set_vrf"
+  }
+  params {
+    id: 1
+    name: "vrf"
+    bitwidth: 8
+  }
+}
+actions {
+  preamble {
+    id: 16795260
+    name: "sai_ingress.control_1q_uni_router.action_set_trap_id"
+    alias: "action_set_trap_id"
+  }
+  params {
+    id: 1
+    name: "trap_id"
+    bitwidth: 11
+  }
+}
+actions {
+  preamble {
+    id: 16829546
+    name: "sai_ingress.control_1q_uni_router.action_set_nhop_id"
+    alias: "action_set_nhop_id"
+  }
+  params {
+    id: 1
+    name: "next_hop_id"
+    bitwidth: 8
+  }
+}
+actions {
+  preamble {
+    id: 16815648
+    name: "sai_ingress.control_1q_uni_router.action_set_nhop_grp_id"
+    alias: "action_set_nhop_grp_id"
+  }
+  params {
+    id: 1
+    name: "next_hop_group_id"
+    bitwidth: 3
+  }
+}
+actions {
+  preamble {
+    id: 16829090
+    name: "sai_ingress.control_1q_uni_router.action_set_ip2me"
+    alias: "action_set_ip2me"
+  }
+}
+actions {
+  preamble {
+    id: 16831487
+    name: "sai_ingress.control_1q_uni_router.action_set_erif_set_nh_dstip_from_pkt"
+    alias: "action_set_erif_set_nh_dstip_from_pkt"
+  }
+  params {
+    id: 1
+    name: "egress_rif"
+    bitwidth: 8
+  }
+}
+actions {
+  preamble {
+    id: 16814427
+    name: "sai_ingress.control_1q_uni_router.action_set_erif_set_nh_dstip"
+    alias: "action_set_erif_set_nh_dstip"
+  }
+  params {
+    id: 1
+    name: "next_hop_dst_ip"
+    bitwidth: 32
+  }
+  params {
+    id: 2
+    name: "egress_rif"
+    bitwidth: 8
+  }
+}
+actions {
+  preamble {
+    id: 16808708
+    name: "sai_ingress.control_1q_uni_router.action_copy_to_cpu"
+    alias: "action_copy_to_cpu"
+  }
+}
+actions {
+  preamble {
+    id: 16778660
+    name: "sai_ingress.control_1q_uni_router.action_trap_to_cpu"
+    alias: "action_trap_to_cpu"
+  }
+}
+actions {
+  preamble {
+    id: 16817746
+    name: "sai_egress.control_cpu.action_forward_cpu"
+    alias: "action_forward_cpu"
+  }
+}
+actions {
+  preamble {
+    id: 16837868
+    name: "sai_egress._drop"
+    alias: "sai_egress._drop"
+  }
+}
+actions {
+  preamble {
+    id: 16782568
+    name: "sai_egress.action_cpu_encap"
+    alias: "action_cpu_encap"
+  }
+}
+actions {
+  preamble {
+    id: 16800710
+    name: "sai_egress.action_dec_ttl"
+    alias: "action_dec_ttl"
+  }
+}
+actions {
+  preamble {
+    id: 16807652
+    name: "sai_egress.action_set_packet_dmac"
+    alias: "action_set_packet_dmac"
+  }
+  params {
+    id: 1
+    name: "dmac"
+    bitwidth: 48
+  }
+}
+actions {
+  preamble {
+    id: 16842238
+    name: "sai_egress.action_egress_trap_to_cpu"
+    alias: "action_egress_trap_to_cpu"
+  }
+}
+actions {
+  preamble {
+    id: 16790937
+    name: "sai_egress.action_set_smac_vid"
+    alias: "action_set_smac_vid"
+  }
+  params {
+    id: 1
+    name: "smac"
+    bitwidth: 48
+  }
+  params {
+    id: 2
+    name: "vid"
+    bitwidth: 12
+  }
+}
+type_info {
+}

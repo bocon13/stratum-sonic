@@ -1,3 +1,5 @@
+#startup --output_base=/bazel
+
 # General build options
 build --conlyopt='-std=gnu11'
 build --cxxopt='-std=gnu++11'

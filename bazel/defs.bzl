@@ -26,4 +26,4 @@
 """
 EMBEDDED_ARCHES = [ "x86" ]
 HOST_ARCHES = [ "x86" ]
-STRATUM_INTERNAL = [ "//stratum:__subpackages__" ]
+STRATUM_INTERNAL = [ "//stratum:__subpackages__", "//SAI-P4-BM:__subpackages__" ]

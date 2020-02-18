@@ -37,7 +37,6 @@
 #include "absl/numeric/int128.h"
 #include "absl/synchronization/mutex.h"
 #include "gnmi/gnmi.grpc.pb.h"
-#include "p4/p4runtime.grpc.pb.h"
 #include "p4/v1/p4runtime.grpc.pb.h"
 #include "stratum/glue/init_google.h"
 #include "stratum/glue/logging.h"

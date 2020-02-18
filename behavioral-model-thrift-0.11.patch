@@ -1,0 +1,29 @@
+diff --git a/src/bm_apps/Makefile.am b/src/bm_apps/Makefile.am
+index 0cc0227..9aec20c 100644
+--- a/src/bm_apps/Makefile.am
++++ b/src/bm_apps/Makefile.am
+@@ -3,7 +3,8 @@ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
+ SUBDIRS = . examples
+ 
+ AM_CPPFLAGS += \
+--I$(top_builddir)/thrift_src/gen-cpp
++-I$(top_builddir)/thrift_src/gen-cpp \
++-DFORCE_BOOST_SMART_PTR
+ 
+ libbmapps_la_SOURCES = \
+ learn.cpp \
+diff --git a/src/bm_runtime/Makefile.am b/src/bm_runtime/Makefile.am
+index fc349f2..8fcd921 100644
+--- a/src/bm_runtime/Makefile.am
++++ b/src/bm_runtime/Makefile.am
+@@ -1,7 +1,8 @@
+ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
+ 
+ AM_CPPFLAGS += \
+--I$(top_builddir)/thrift_src/gen-cpp
++-I$(top_builddir)/thrift_src/gen-cpp \
++-DFORCE_BOOST_SMART_PTR
+ 
+ noinst_LTLIBRARIES = libbmruntime.la
+ 
+

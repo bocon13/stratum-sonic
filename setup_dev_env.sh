@@ -15,6 +15,9 @@
 # limitations under the License.
 #
 
+# Brian sonic
+#docker build -t stratum-sonic -f Dockerfile.sonic foo
+
 if [[ $EUID -eq 0 ]]; then
    echo "This script should not be run as root, run it as the user who owns the Stratum source directory"
    exit 1
@@ -128,4 +131,6 @@ if [ -n "$SDKLT" ]; then
 fi
 DOCKER_RUN_OPTIONS="$DOCKER_RUN_OPTIONS -v $BAZEL_CACHE:/home/$USER/.cache"
 DOCKER_RUN_OPTIONS="$DOCKER_RUN_OPTIONS $@"
+
+
 docker run $DOCKER_RUN_OPTIONS -w /stratum --user $USER -ti $IMAGE_NAME bash

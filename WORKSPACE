@@ -35,6 +35,11 @@ workspace(name = "com_github_stratum_stratum")
 #       Please do not push changes to this section upstream.
 # ---------------------------------------------------------------------------
 
+#FIXME(bocon)
+load("//SAI-P4-BM/sai_adapter:system_lib.bzl", "system_configure")
+system_configure(name = "local_system_bin")
+
+
 # ---------------------------------------------------------------------------
 #       Load tools to build Stratum
 # ---------------------------------------------------------------------------

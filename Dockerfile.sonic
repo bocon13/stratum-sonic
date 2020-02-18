@@ -1,0 +1,126 @@
+# docker build -t stratum-sonic:t11 -f Dockerfile.sonic sonic-deps/
+
+#docker build -t stratum-sonic -f Dockerfile.sonic .
+#docker run -v `pwd`:/stratum -w /stratum --rm -it stratum-sonic bash
+
+FROM stratumproject/build:build
+
+
+RUN apt-get update
+
+# Install Thrift dependencies
+RUN apt-get install -y automake bison flex g++ git libboost-all-dev libevent-dev libssl1.0-dev libtool make pkg-config
+
+# Install Thift from SONiC packages
+COPY *.deb /tmp/
+RUN apt-get install -y qt5-default
+RUN dpkg -i /tmp/*.deb
+
+#ARG THRIFT_VERSION=0.9.3
+#ARG THRIFT_VERSION=0.11.0
+## Install Thrift
+#RUN wget http://archive.apache.org/dist/thrift/${THRIFT_VERSION}/thrift-${THRIFT_VERSION}.tar.gz && \
+#tar xzf thrift-${THRIFT_VERSION}.tar.gz && \
+#cd thrift-${THRIFT_VERSION} && \
+#sed -i.orig 's/SSLv3_method/SSLv23_method/' lib/cpp/src/thrift/transport/TSSLSocket.cpp && \
+#./configure \
+#  --without-csharp \
+#  --without-d \
+#  --without-erlang \
+#  --without-go \
+#  --without-haskell \
+#  --without-java \
+#  --without-lua \
+#  --without-nodejs \
+#  --without-perl \
+#  --without-php \
+#  --without-php_extension \
+#  --without-ruby && \
+#make && \
+#make install
+
+# Install p4c-bm
+RUN apt-get install -y python-pip
+RUN cd / && \
+  git clone https://github.com/p4lang/p4c-bm && \
+  cd p4c-bm/ && \
+  pip install -r requirements.txt && \
+  pip install -r requirements_v1_1.txt && \
+  python setup.py install
+
+
+# Download SAI BMv2
+RUN cd / && \
+  git clone --recursive https://github.com/Mellanox/SAI-P4-BM
+# Install p4 switch deps
+RUN cd /SAI-P4-BM/p4-switch/behavioral-model && \
+  ./install_deps.sh
+## Install p4 switch
+#RUN ldconfig
+#RUN cd /SAI-P4-BM/p4-switch/ && \
+#  ./autogen.sh && \
+#  ./configure --without-targets && \
+#  make && \
+#  make install
+## Install sai_adapter
+##RUN pip install ctypesgen && \
+##  ln -s /usr/local/bin/ctypesgen /usr/local/bin/ctypesgen.py
+#RUN sed -i.orig 's/test//' /SAI-P4-BM/sai_adapter/Makefile.am
+#RUN cd /SAI-P4-BM/sai_adapter && \
+#  ./install_deps.sh && \
+#  ./autogen.sh && \
+#  ./configure && \
+#  make && \
+#  make install
+
+RUN ldconfig
+
+RUN echo foo 
+
+# Install p4c for P4-16
+#RUN apt-get install cmake g++ git automake libtool libgc-dev bison flex \
+#  libfl-dev libgmp-dev libboost-dev libboost-iostreams-dev \
+#  libboost-graph-dev llvm pkg-config python python-scapy python-ipaddr python-ply python3-pip \
+#  tcpdump
+#RUN cd / && \
+#  git clone --recursive https://github.com/p4lang/p4c.git && \
+
+
+
+#root@1fd9060da073:/stratum/SAI-P4-BM/p4-switch/behavioral-model# ./install_deps.sh 
+
+
+# OR
+#apt install -y libnanomsg-dev
+#root@bbeb1c004b8a:/stratum/SAI-P4-BM/p4-switch# ./autogen.sh 
+
+
+#  apt update && apt install -y python-pip
+#root@1fd9060da073:/stratum/SAI-P4-BM/sai_adapter# ./install_deps.sh 
+#root@1fd9060da073:/stratum/SAI-P4-BM/sai_adapter# ./autogen.sh 
+#root@1fd9060da073:/stratum/SAI-P4-BM/sai_adapter# ./configure 
+#root@1fd9060da073:/stratum/SAI-P4-BM/sai_adapter# ./configure CPPFLAGS="-isystem$BMV2_INSTALL/include"
+#root@1fd9060da073:/stratum/SAI-P4-BM/sai_adapter# make
+#
+#
+#
+#
+#bazel build -s //SAI-P4-BM/sai_adapter:sai_adapter
+#  /usr/bin/gcc -shared -o bazel-out/k8-fastbuild/bin/SAI-P4-BM/sai_adapter/libsai_adapter.so -Wl,-S '-fuse-ld=gold' -Wl,-no-as-needed -Wl,-z,relro,-z,now -B/usr/bin -pass-exit-codes -Wl,@bazel-out/k8-fastbuild/bin/SAI-P4-BM/sai_adapter/libsai_adapter.so-2.params)
+#
+#root@1fd9060da073:/stratum/SAI-P4-BM/p4-switch/behavioral-model# ldd /stratum/bazel-bin/SAI-P4-BM/sai_adapter/libsai_adapter.so
+#	linux-vdso.so.1 (0x00007ffedaf44000)
+#	libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f1c2519a000)
+#	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f1c24e96000)
+#	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f1c24c7f000)
+#	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f1c248e0000)
+#	/lib64/ld-linux-x86-64.so.2 (0x00007f1c25734000)
+#
+#
+#  -lruntimestubs -lthrift -lpcap 
+#  -L/usr/lib/gcc/x86_64-linux-gnu/6 -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu
+#  -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib
+#  -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/6/../../..
+#  -lstdc++ -lm -lc -lgcc_s
+#
+#libtool: link: g++  -fPIC -DPIC -shared -nostdlib /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/6/crtbeginS.o  .libs/sai.o .libs/tun_if.o .libs/saiacl.o .libs/sailag.o .libs/saisamplepacket.o .libs/sai_adapter.o .libs/saimcastfdb.o .libs/saischeduler.o .libs/sai_adapter_interface.o .libs/saimirror.o .libs/saischedulergroup.o .libs/saibridge.o .libs/saineighbor.o .libs/sai_sniffer.o .libs/saibuffer.o .libs/sainexthop.o .libs/saistp.o .libs/saifdb.o .libs/saipolicer.o .libs/saiswitch.o .libs/saihash.o .libs/saiport.o .libs/saitunnel.o .libs/saihostif.o .libs/saiqosmap.o .libs/saiudf.o .libs/saiipmc.o .libs/saiqueue.o .libs/saivirtualrouter.o .libs/saiipmcgroup.o .libs/sairoute.o .libs/saivlan.o .libs/sail2mc.o .libs/sairouter_if.o .libs/saiwred.o .libs/sail2mcgroup.o .libs/sairpfgroup.o   -lruntimestubs -lthrift -lpcap -L/usr/lib/gcc/x86_64-linux-gnu/6 -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/6/../../.. -lstdc++ -lm -lc -lgcc_s /usr/lib/gcc/x86_64-linux-gnu/6/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crtn.o  -O3 -pthread -g -O2   -pthread -Wl,-soname -Wl,libsai.so.0 -o .libs/libsai.so.0.0.0
