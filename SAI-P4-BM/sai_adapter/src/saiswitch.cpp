@@ -306,7 +306,7 @@ sai_status_t sai_adapter::remove_switch(sai_object_id_t switch_id) {
 }
 
 sai_status_t sai_adapter::get_switch_attribute(sai_object_id_t switch_id,
-                                               sai_uint32_t attr_count,
+                                               uint32_t attr_count,
                                                sai_attribute_t *attr_list) {
   (*logger)->info("get_switch_attribute");
   int i;
@@ -337,7 +337,7 @@ sai_status_t sai_adapter::get_switch_attribute(sai_object_id_t switch_id,
         }
         attr_list[i].value.objlist.count = index;
         break;
-      case SAI_SWITCH_ATTR_PORT_NUMBER:
+      case SAI_SWITCH_ATTR_NUMBER_OF_ACTIVE_PORTS:
         attr_list[i].value.u32 = std::count_if(
           switch_metadata_ptr->ports.begin(), 
           switch_metadata_ptr->ports.end(), 
@@ -406,4 +406,28 @@ sai_status_t sai_adapter::set_switch_attribute(sai_object_id_t switch_id,
       break;
   }
   return SAI_STATUS_SUCCESS;
+}
+
+sai_status_t sai_adapter::get_switch_stats(
+        _In_ sai_object_id_t switch_id,
+        _In_ uint32_t number_of_counters,
+        _In_ const sai_stat_id_t *counter_ids,
+        _Out_ uint64_t *counters) {
+  return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::get_switch_stats_ext(
+        _In_ sai_object_id_t switch_id,
+        _In_ uint32_t number_of_counters,
+        _In_ const sai_stat_id_t *counter_ids,
+        _In_ sai_stats_mode_t mode,
+        _Out_ uint64_t *counters) {
+  return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::clear_switch_stats(
+        _In_ sai_object_id_t switch_id,
+        _In_ uint32_t number_of_counters,
+        _In_ const sai_stat_id_t *counter_ids) {
+  return SAI_STATUS_NOT_IMPLEMENTED;
 }

@@ -260,18 +260,15 @@ void sai_adapter::PacketSniffer() {
 }
 
 void sai_adapter::build_fdb_entry(sai_mac_t mac,
-    /*sai_fdb_entry_bridge_type_t bridge_type,*/ sai_vlan_id_t vlan_id,
-    sai_object_id_t bridge_id, sai_fdb_entry_t *fdb_entry) {
+                                  sai_object_id_t bv_id,
+                                  sai_fdb_entry_t *fdb_entry) {
   fdb_entry->switch_id = 0;
+  fdb_entry->bv_id = bv_id;
   // for (int i = 0; i < ETHER_ADDR_LEN; i++) {
     // fdb_entry->mac_address[i] = mac[i];
   // }
   memcpy(fdb_entry->mac_address, mac, 6);
-//  fdb_entry->bridge_type = bridge_type;
-//  if (bridge_type == SAI_FDB_ENTRY_BRIDGE_TYPE_1Q) {
-//    fdb_entry->vlan_id = vlan_id;
-//  }
-  fdb_entry->bridge_id = bridge_id;
+
 }
 
 void sai_adapter::cpu_port_packetHandler(u_char *userData,
@@ -372,25 +369,20 @@ void sai_adapter::learn_mac(u_char *packet, cpu_hdr_t *cpu, int pkt_len) {
   (*logger)->info("MAC learned (bridge sai_object_id {}):",
                   bridge->sai_object_id);
   print_mac_to_log(src_mac, *logger);
-//  sai_fdb_entry_bridge_type_t bridge_type;
-//  if (bridge->bridge_type == SAI_BRIDGE_TYPE_1Q) {
-//    bridge_type = SAI_FDB_ENTRY_BRIDGE_TYPE_1Q;
-//  } else {
-//    bridge_type = SAI_FDB_ENTRY_BRIDGE_TYPE_1D;
-//    vlan_id = bridge_port->vlan_id;
-//  }
+
   // if (ether->ether_type == 0x8100) {
   // TODO: get vlan from packet
   // }
   sai_fdb_entry_t fdb_entry;
-  build_fdb_entry(src_mac, bridge_type, vlan_id, bridge->sai_object_id, &fdb_entry);
+  // FIXME(BOC) need to pick the right VLAN ID or bridge ID
+  build_fdb_entry(src_mac, /*FIXME(BOC)*/ bridge->sai_object_id, &fdb_entry);
 
   sai_attribute_t flush_attr[3];
   flush_attr[0].id = SAI_FDB_FLUSH_ATTR_ENTRY_TYPE;
   flush_attr[0].value.s32 = SAI_FDB_ENTRY_TYPE_DYNAMIC;
 //  flush_attr[1].id = SAI_FDB_FLUSH_ATTR_VLAN_ID;
   flush_attr[1].id = SAI_FDB_FLUSH_ATTR_BV_ID; //FIXME(BOC)
-  flush_attr[1].value.u16 = fdb_entry.vlan_id;
+  flush_attr[1].value.u16 = fdb_entry.bv_id;
   flush_attr[2].id = SAI_FDB_FLUSH_ATTR_BRIDGE_PORT_ID;
   flush_attr[2].value.oid = bridge_port->sai_object_id;
   flush_fdb_entries(switch_metadata_ptr->switch_id, 3, flush_attr);

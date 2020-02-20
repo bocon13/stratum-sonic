@@ -246,3 +246,51 @@ sai_status_t sai_adapter::remove_route_entry(const sai_route_entry_t *route_entr
 
   return SAI_STATUS_SUCCESS;
 }
+
+sai_status_t sai_adapter::set_route_entry_attribute(
+    const sai_route_entry_t *route_entry,
+    const sai_attribute_t *attr) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+sai_status_t sai_adapter::get_route_entry_attribute(
+    const sai_route_entry_t *route_entry,
+    uint32_t attr_count,
+    sai_attribute_t *attr_list) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+sai_status_t sai_adapter::create_route_entries(
+    uint32_t object_count,
+    const sai_route_entry_t *route_entry,
+    const uint32_t *attr_count,
+    const sai_attribute_t **attr_list,
+    sai_bulk_op_error_mode_t mode,
+    sai_status_t *object_statuses) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::remove_route_entries(
+    uint32_t object_count,
+    const sai_route_entry_t *route_entry,
+    sai_bulk_op_error_mode_t mode,
+    sai_status_t *object_statuses) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::set_route_entries_attribute(
+    uint32_t object_count,
+    const sai_route_entry_t *route_entry,
+    const sai_attribute_t *attr_list,
+    sai_bulk_op_error_mode_t mode,
+    sai_status_t *object_statuses) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::get_route_entries_attribute(
+    uint32_t object_count,
+    const sai_route_entry_t *route_entry,
+    const uint32_t *attr_count,
+    sai_attribute_t **attr_list,
+    sai_bulk_op_error_mode_t mode,
+    sai_status_t *object_statuses) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}

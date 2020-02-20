@@ -244,7 +244,7 @@ sai_status_t sai_adapter::set_vlan_attribute(sai_object_id_t vlan_id,
   // implementation
 }
 sai_status_t sai_adapter::get_vlan_attribute(sai_object_id_t vlan_id,
-                                             const uint32_t attr_count,
+                                             uint32_t attr_count,
                                              sai_attribute_t *attr_list) {
   (*logger)->info("get_vlan_attribute");
   Vlan_obj *vlan = switch_metadata_ptr->vlans[vlan_id];
@@ -275,7 +275,7 @@ sai_adapter::set_vlan_member_attribute(sai_object_id_t vlan_member_id,
 }
 sai_status_t
 sai_adapter::get_vlan_member_attribute(sai_object_id_t vlan_member_id,
-                                       const uint32_t attr_count,
+                                       uint32_t attr_count,
                                        sai_attribute_t *attr_list) {
   (*logger)->info("get_vlan_member_attribute");
   int i;
@@ -298,16 +298,27 @@ sai_adapter::get_vlan_member_attribute(sai_object_id_t vlan_member_id,
 
 sai_status_t sai_adapter::get_vlan_stats(sai_object_id_t vlan_id,
                                          uint32_t number_of_counters,
-                                         const sai_vlan_stat_t *counter_ids,
+                                         const sai_stat_id_t *counter_ids,
                                          uint64_t *counters) {
   (*logger)->info("TODO : get_vlan_stats not implemened");
   return SAI_STATUS_NOT_IMPLEMENTED;
 
   // implementation
 }
+sai_status_t sai_adapter::get_vlan_stats_ext(
+        sai_object_id_t vlan_id,
+        uint32_t number_of_counters,
+        const sai_stat_id_t *counter_ids,
+        sai_stats_mode_t mode,
+        uint64_t *counters) {
+    (*logger)->info("TODO : get_vlan_stats_ext not implemened");
+    return SAI_STATUS_NOT_IMPLEMENTED;
+
+    // implementation
+}
 sai_status_t sai_adapter::clear_vlan_stats(sai_object_id_t vlan_id,
                                            uint32_t number_of_counters,
-                                           const sai_vlan_stat_t *counter_ids) {
+                                           const sai_stat_id_t *counter_ids) {
   (*logger)->info("TODO : clear_vlan_stats not implemened");
   return SAI_STATUS_NOT_IMPLEMENTED;
   // implementation
@@ -316,7 +327,7 @@ sai_status_t sai_adapter::clear_vlan_stats(sai_object_id_t vlan_id,
 sai_status_t sai_adapter::create_vlan_members(
         _In_ sai_object_id_t switch_id,
         _In_ uint32_t object_count,
-        _In_ const uint32_t *attr_count,
+        _In_ uint32_t *attr_count,
         _In_ const sai_attribute_t **attrs,
         _In_ sai_bulk_op_error_mode_t type,
         _Out_ sai_object_id_t *object_id,

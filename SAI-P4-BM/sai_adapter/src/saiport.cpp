@@ -102,10 +102,11 @@ bool sai_adapter::set_parsed_port_attribute(Port_obj *port,
       port->pvid = attribute->value.u16;
       return true;
       break;
-    case SAI_PORT_ATTR_BIND_MODE:
-      port->bind_mode = attribute->value.s32;
-      return true;
-      break;
+//FIXME(BOC) bind mode is removed
+//    case SAI_PORT_ATTR_BIND_MODE:
+//      port->bind_mode = attribute->value.s32;
+//      return true;
+//      break;
     case SAI_PORT_ATTR_HW_LANE_LIST:
       port->hw_port = attribute->value.u32list.list[0];
       return true;
@@ -140,9 +141,10 @@ sai_status_t sai_adapter::get_parsed_port_attribute(Port_obj *port,
     case SAI_PORT_ATTR_PORT_VLAN_ID:
       attribute->value.u16 = port->pvid;
       break;
-    case SAI_PORT_ATTR_BIND_MODE:
-      attribute->value.s32 = port->bind_mode;
-      break;
+//FIXME(BOC) bind mode is removed
+//    case SAI_PORT_ATTR_BIND_MODE:
+//      attribute->value.s32 = port->bind_mode;
+//      break;
     case SAI_PORT_ATTR_HW_LANE_LIST:
       attribute->value.u32list.count = 1;
       attribute->value.u32list.list[0] = port->hw_port;
@@ -212,8 +214,109 @@ void sai_adapter::config_port(Port_obj *port) {
   }
 }
 
-sai_status_t sai_adapter::get_port_stats(sai_object_id_t port_id, uint32_t number_of_counters, const sai_port_stat_t *counter_ids, uint64_t *counters) {
-  return SAI_STATUS_NOT_IMPLEMENTED;
+sai_status_t sai_adapter::get_port_stats(
+    sai_object_id_t port_id,
+    uint32_t number_of_counters,
+    const sai_stat_id_t *counter_ids,
+    uint64_t *counters) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::get_port_stats_ext(
+    sai_object_id_t port_id,
+    uint32_t number_of_counters,
+    const sai_stat_id_t *counter_ids,
+    sai_stats_mode_t mode,
+    uint64_t *counters) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::clear_port_stats(
+    sai_object_id_t port_id,
+    uint32_t number_of_counters,
+    const sai_stat_id_t *counter_ids) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::clear_port_all_stats(
+    sai_object_id_t port_id) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::create_port_pool(
+    sai_object_id_t *port_pool_id,
+    sai_object_id_t switch_id,
+    uint32_t attr_count,
+    const sai_attribute_t *attr_list) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::remove_port_pool(
+    sai_object_id_t port_pool_id) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::set_port_pool_attribute(
+    sai_object_id_t port_pool_id,
+    const sai_attribute_t *attr) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::get_port_pool_attribute(
+    sai_object_id_t port_pool_id,
+    uint32_t attr_count,
+    sai_attribute_t *attr_list) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::get_port_pool_stats(
+    sai_object_id_t port_pool_id,
+    uint32_t number_of_counters,
+    const sai_stat_id_t *counter_ids,
+    uint64_t *counters) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::get_port_pool_stats_ext(
+    sai_object_id_t port_pool_id,
+    uint32_t number_of_counters,
+    const sai_stat_id_t *counter_ids,
+    sai_stats_mode_t mode,
+    uint64_t *counters) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::clear_port_pool_stats(
+    sai_object_id_t port_pool_id,
+    uint32_t number_of_counters,
+    const sai_stat_id_t *counter_ids) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::create_port_serdes(
+    sai_object_id_t *port_serdes_id,
+    sai_object_id_t switch_id,
+    uint32_t attr_count,
+    const sai_attribute_t *attr_list) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::remove_port_serdes(
+    sai_object_id_t port_serdes_id) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::set_port_serdes_attribute(
+    sai_object_id_t port_serdes_id,
+    const sai_attribute_t *attr) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::get_port_serdes_attribute(
+    sai_object_id_t port_serdes_id,
+    uint32_t attr_count,
+    sai_attribute_t *attr_list) {
+        return SAI_STATUS_NOT_IMPLEMENTED;
 }
 
 void sai_adapter::send_link_status_message(int ifi_index, bool admin_state) {

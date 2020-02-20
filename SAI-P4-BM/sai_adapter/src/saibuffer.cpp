@@ -29,7 +29,7 @@ sai_status_t sai_adapter::get_buffer_pool_attribute(
 sai_status_t sai_adapter::get_buffer_pool_stats(
         _In_ sai_object_id_t buffer_pool_id,
         _In_ uint32_t number_of_counters,
-        _In_ const sai_buffer_pool_stat_t *counter_ids,
+        _In_ const sai_stat_id_t *counter_ids,
         _Out_ uint64_t *counters) {
 	return SAI_STATUS_NOT_IMPLEMENTED;
 }
@@ -46,7 +46,7 @@ sai_status_t sai_adapter::get_buffer_pool_stats_ext(
 sai_status_t sai_adapter::clear_buffer_pool_stats(
         _In_ sai_object_id_t buffer_pool_id,
         _In_ uint32_t number_of_counters,
-        _In_ const sai_buffer_pool_stat_t *counter_ids) {
+        _In_ const sai_stat_id_t *counter_ids) {
 	return SAI_STATUS_NOT_IMPLEMENTED;
 }
 

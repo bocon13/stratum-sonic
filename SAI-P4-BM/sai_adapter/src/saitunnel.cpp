@@ -52,7 +52,7 @@ sai_status_t sai_adapter::get_tunnel_attribute(
     return SAI_STATUS_NOT_IMPLEMENTED;
 }
 
-sai_status_t sai_adapter::sai_get_tunnel_stats(
+sai_status_t sai_adapter::get_tunnel_stats(
         _In_ sai_object_id_t tunnel_id,
         _In_ uint32_t number_of_counters,
         _In_ const sai_stat_id_t *counter_ids,
@@ -60,7 +60,7 @@ sai_status_t sai_adapter::sai_get_tunnel_stats(
     return SAI_STATUS_NOT_IMPLEMENTED;
 }
 
-sai_status_t sai_adapter::sai_get_tunnel_stats_ext(
+sai_status_t sai_adapter::get_tunnel_stats_ext(
         _In_ sai_object_id_t tunnel_id,
         _In_ uint32_t number_of_counters,
         _In_ const sai_stat_id_t *counter_ids,
@@ -69,7 +69,7 @@ sai_status_t sai_adapter::sai_get_tunnel_stats_ext(
     return SAI_STATUS_NOT_IMPLEMENTED;
 }
 
-sai_status_t sai_adapter::sai_clear_tunnel_stats(
+sai_status_t sai_adapter::clear_tunnel_stats(
         _In_ sai_object_id_t tunnel_id,
         _In_ uint32_t number_of_counters,
         _In_ const sai_stat_id_t *counter_ids) {

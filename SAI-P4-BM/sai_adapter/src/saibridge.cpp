@@ -135,14 +135,14 @@ sai_status_t sai_adapter::create_bridge_port(sai_object_id_t *bridge_port_id,
   else if (bridge_port->bridge_port_type == SAI_BRIDGE_PORT_TYPE_PORT) {
     l2_if_type = 3;
   }
-  uint32_t bind_mode;
+//  uint32_t bind_mode;
   uint32_t l2_if;
   uint32_t is_lag;
   port_id_map_t::iterator it = switch_metadata_ptr->ports.find(bridge_port->port_id);
   if (it != switch_metadata_ptr->ports.end()) { // port_id is port
     Port_obj *port = (Port_obj *)it->second;
     (*logger)->info("bridge_port port_id {} matches hw_port {}", bridge_port->port_id, port->hw_port);
-    bind_mode = port->bind_mode;
+//    bind_mode = port->bind_mode;
     l2_if = port->l2_if;
     is_lag = 0;
   } else { // port_id is lag
@@ -164,19 +164,19 @@ sai_status_t sai_adapter::create_bridge_port(sai_object_id_t *bridge_port_id,
   bridge_port->handle_egress_br_port_to_if = bm_bridge_client_ptr->bm_mt_add_entry(
       cxt_id, "table_egress_br_port_to_if", match_params,
       "action_forward_set_outIfType", action_data, options);
-  if (bind_mode == SAI_PORT_BIND_MODE_SUB_PORT) {
-    match_params.clear();
-    match_params.push_back(
-        parse_exact_match_param(l2_if, 1)); // TODO p4 table match is on l2_if
-    match_params.push_back(parse_exact_match_param(bridge_port->vlan_id, 2));
-    action_data.clear();
-    action_data.push_back(parse_param(l2_if_type, 1));
-    action_data.push_back(parse_param(bridge_port->bridge_port, 1));
-    bridge_port->handle_subport_ingress_interface_type =
-        bm_bridge_client_ptr->bm_mt_add_entry(
-            cxt_id, "table_subport_ingress_interface_type", match_params,
-            "action_set_l2_if_type", action_data, options);
-  } else {
+//  if (bind_mode == SAI_PORT_BIND_MODE_SUB_PORT) {
+//    match_params.clear();
+//    match_params.push_back(
+//        parse_exact_match_param(l2_if, 1)); // TODO p4 table match is on l2_if
+//    match_params.push_back(parse_exact_match_param(bridge_port->vlan_id, 2));
+//    action_data.clear();
+//    action_data.push_back(parse_param(l2_if_type, 1));
+//    action_data.push_back(parse_param(bridge_port->bridge_port, 1));
+//    bridge_port->handle_subport_ingress_interface_type =
+//        bm_bridge_client_ptr->bm_mt_add_entry(
+//            cxt_id, "table_subport_ingress_interface_type", match_params,
+//            "action_set_l2_if_type", action_data, options);
+//  } else {
     match_params.clear();
     match_params.push_back(parse_exact_match_param(l2_if, 1));
     action_data.clear();
@@ -186,7 +186,7 @@ sai_status_t sai_adapter::create_bridge_port(sai_object_id_t *bridge_port_id,
         bm_bridge_client_ptr->bm_mt_add_entry(
             cxt_id, "table_port_ingress_interface_type", match_params,
             "action_set_l2_if_type", action_data, options);
-  }
+//  }
   *bridge_port_id = bridge_port->sai_object_id;
   return SAI_STATUS_SUCCESS;
 }
@@ -304,4 +304,52 @@ sai_status_t sai_adapter::set_bridge_port_attribute(
       return SAI_STATUS_NOT_IMPLEMENTED;
   }
   return SAI_STATUS_SUCCESS;
+}
+
+sai_status_t sai_adapter::get_bridge_port_stats(
+        _In_ sai_object_id_t bridge_port_id,
+        _In_ uint32_t number_of_counters,
+        _In_ const sai_stat_id_t *counter_ids,
+        _Out_ uint64_t *counters) {
+    return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::get_bridge_port_stats_ext(
+        _In_ sai_object_id_t bridge_port_id,
+        _In_ uint32_t number_of_counters,
+        _In_ const sai_stat_id_t *counter_ids,
+        _In_ sai_stats_mode_t mode,
+        _Out_ uint64_t *counters) {
+    return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::clear_bridge_port_stats(
+        _In_ sai_object_id_t bridge_port_id,
+        _In_ uint32_t number_of_counters,
+        _In_ const sai_stat_id_t *counter_ids) {
+    return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::get_bridge_stats(
+        _In_ sai_object_id_t bridge_id,
+        _In_ uint32_t number_of_counters,
+        _In_ const sai_stat_id_t *counter_ids,
+        _Out_ uint64_t *counters) {
+    return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::get_bridge_stats_ext(
+        _In_ sai_object_id_t bridge_id,
+        _In_ uint32_t number_of_counters,
+        _In_ const sai_stat_id_t *counter_ids,
+        _In_ sai_stats_mode_t mode,
+        _Out_ uint64_t *counters){
+    return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::clear_bridge_stats(
+        _In_ sai_object_id_t bridge_id,
+        _In_ uint32_t number_of_counters,
+        _In_ const sai_stat_id_t *counter_ids) {
+    return SAI_STATUS_NOT_IMPLEMENTED;
 }

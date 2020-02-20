@@ -57,6 +57,18 @@ pkg_tar(
 )
 
 pkg_tar(
+    name = "stratum_bmv2_deps",
+    srcs = [
+        "@local_bmv2_bin//:bmv2_deps",
+    ],
+    package_dir = "/usr/lib/x86_64-linux-gnu/",
+    mode = "0755",
+    remap_paths = {
+        "local_bmv2_bin/bmv2-bin/lib": "/usr/lib/x86_64-linux-gnu/"
+    },
+)
+
+pkg_tar(
     name = "stratum_bmv2_service",
     srcs = ["stratum_bmv2.service"],
     mode = "0644",
@@ -86,6 +98,7 @@ pkg_tar(
     deps = [
         ":stratum_bmv2_bin",
         ":stratum_bmv2_config",
+        ":stratum_bmv2_deps",
         ":stratum_bmv2_pipeline",
         ":stratum_bmv2_service",
     ],
@@ -100,12 +113,12 @@ pkg_deb(
         "libjudy-dev",
         "libgmp-dev",
         "libpcap-dev",
-        "libboost1.55-all-dev",
+        "libboost1.62-all-dev",
     ],
     description_file = "debian/description",
     homepage = "https://stratumproject.org/",
     maintainer = "https://stratumproject.org/",
     package = "stratum_bmv2",
-    postinst = "debian/postinst",
+    #postinst = "debian/postinst",
     version = "0.1.1",
 )

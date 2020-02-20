@@ -77,12 +77,29 @@ sai_adapter::sai_adapter()
   switch_api.remove_switch = &sai_adapter::remove_switch;
   switch_api.get_switch_attribute = &sai_adapter::get_switch_attribute;
   switch_api.set_switch_attribute = &sai_adapter::set_switch_attribute;
+  switch_api.get_switch_stats = &sai_adapter::get_switch_stats;
+  switch_api.get_switch_stats_ext = &sai_adapter::get_switch_stats_ext;
+  switch_api.clear_switch_stats = &sai_adapter::clear_switch_stats;
 
   port_api.create_port = &sai_adapter::create_port;
   port_api.remove_port = &sai_adapter::remove_port;
   port_api.set_port_attribute = &sai_adapter::set_port_attribute;
   port_api.get_port_attribute = &sai_adapter::get_port_attribute;
   port_api.get_port_stats = &sai_adapter::get_port_stats;
+  port_api.get_port_stats_ext = &sai_adapter::get_port_stats_ext;
+  port_api.clear_port_stats = &sai_adapter::clear_port_stats;
+  port_api.clear_port_all_stats = &sai_adapter::clear_port_all_stats;
+  port_api.create_port_pool = &sai_adapter::create_port_pool;
+  port_api.remove_port_pool = &sai_adapter::remove_port_pool;
+  port_api.set_port_pool_attribute = &sai_adapter::set_port_pool_attribute;
+  port_api.get_port_pool_attribute = &sai_adapter::get_port_pool_attribute;
+  port_api.get_port_pool_stats = &sai_adapter::get_port_pool_stats;
+  port_api.get_port_pool_stats_ext = &sai_adapter::get_port_pool_stats_ext;
+  port_api.clear_port_pool_stats = &sai_adapter::clear_port_pool_stats;
+  port_api.create_port_serdes = &sai_adapter::create_port_serdes;
+  port_api.remove_port_serdes = &sai_adapter::remove_port_serdes;
+  port_api.set_port_serdes_attribute = &sai_adapter::set_port_serdes_attribute;
+  port_api.get_port_serdes_attribute = &sai_adapter::get_port_serdes_attribute;
 
   bridge_api.create_bridge = &sai_adapter::create_bridge;
   bridge_api.remove_bridge = &sai_adapter::remove_bridge;
@@ -94,6 +111,12 @@ sai_adapter::sai_adapter()
       &sai_adapter::get_bridge_port_attribute;
   bridge_api.set_bridge_port_attribute =
       &sai_adapter::set_bridge_port_attribute;
+  bridge_api.get_bridge_port_stats = &sai_adapter::get_bridge_port_stats;
+  bridge_api.get_bridge_port_stats_ext = &sai_adapter::get_bridge_port_stats_ext;
+  bridge_api.clear_bridge_port_stats = &sai_adapter::clear_bridge_port_stats;
+  bridge_api.get_bridge_stats = &sai_adapter::get_bridge_stats;
+  bridge_api.get_bridge_stats_ext = &sai_adapter::get_bridge_stats_ext;
+  bridge_api.clear_bridge_stats = &sai_adapter::clear_bridge_stats;
 
   fdb_api.create_fdb_entry = &sai_adapter::create_fdb_entry;
   fdb_api.remove_fdb_entry = &sai_adapter::remove_fdb_entry;
@@ -110,6 +133,7 @@ sai_adapter::sai_adapter()
   vlan_api.set_vlan_member_attribute = &sai_adapter::set_vlan_member_attribute;
   vlan_api.get_vlan_member_attribute = &sai_adapter::get_vlan_member_attribute;
   vlan_api.get_vlan_stats = &sai_adapter::get_vlan_stats;
+  vlan_api.get_vlan_stats_ext = &sai_adapter::get_vlan_stats_ext;
   vlan_api.clear_vlan_stats = &sai_adapter::clear_vlan_stats;
 
   lag_api.create_lag = &sai_adapter::create_lag;
@@ -137,6 +161,9 @@ sai_adapter::sai_adapter()
   router_interface_api.remove_router_interface = &sai_adapter::remove_router_interface;
   router_interface_api.set_router_interface_attribute = &sai_adapter::set_router_interface_attribute;
   router_interface_api.get_router_interface_attribute = &sai_adapter::get_router_interface_attribute;
+  router_interface_api.get_router_interface_stats = &sai_adapter::get_router_interface_stats;
+  router_interface_api.get_router_interface_stats_ext = &sai_adapter::get_router_interface_stats_ext;
+  router_interface_api.clear_router_interface_stats = &sai_adapter::clear_router_interface_stats;
 
   virtual_router_api.create_virtual_router = &sai_adapter::create_virtual_router;
   virtual_router_api.remove_virtual_router = &sai_adapter::remove_virtual_router;
@@ -151,6 +178,12 @@ sai_adapter::sai_adapter()
 
   route_api.create_route_entry = &sai_adapter::create_route_entry;
   route_api.remove_route_entry = &sai_adapter::remove_route_entry;
+  route_api.set_route_entry_attribute = &sai_adapter::set_route_entry_attribute;
+  route_api.get_route_entry_attribute = &sai_adapter::get_route_entry_attribute;
+  route_api.create_route_entries = &sai_adapter::create_route_entries;
+  route_api.remove_route_entries = &sai_adapter::remove_route_entries;
+  route_api.set_route_entries_attribute = &sai_adapter::set_route_entries_attribute;
+  route_api.get_route_entries_attribute = &sai_adapter::get_route_entries_attribute;
 
   policer_api.create_policer = &sai_adapter::create_policer;
   policer_api.remove_policer = &sai_adapter::remove_policer;
@@ -273,7 +306,7 @@ sai_adapter::sai_adapter()
   buffer_api.set_ingress_priority_group_attribute = &sai_adapter::set_ingress_priority_group_attribute;
   buffer_api.get_ingress_priority_group_attribute = &sai_adapter::get_ingress_priority_group_attribute;
   buffer_api.get_ingress_priority_group_stats = &sai_adapter::get_ingress_priority_group_stats;
-  buffer_api.get_ingress_priority_group_stats = &sai_adapter::get_ingress_priority_group_stats_ext;
+  buffer_api.get_ingress_priority_group_stats_ext = &sai_adapter::get_ingress_priority_group_stats_ext;
   buffer_api.clear_ingress_priority_group_stats = &sai_adapter::clear_ingress_priority_group_stats;
   buffer_api.create_buffer_profile = &sai_adapter::create_buffer_profile;
   buffer_api.remove_buffer_profile = &sai_adapter::remove_buffer_profile;

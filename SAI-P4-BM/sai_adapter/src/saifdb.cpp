@@ -1,4 +1,16 @@
 #include "sai_adapter.h"
+/*
+ *
+ *   if(_sai_object_type_query(bv_id) == SAI_OBJECT_TYPE_VLAN) {
+      Vlan_obj *vlan = switch_metadata_ptr->vlans[bv_id];
+      fdb_entry->bridge_type = SAI_BRIDGE_TYPE_1Q;
+      fdb_entry->vlan_id = vlan->vid;
+      fdb_entry->bridge_id = vlan->bridge_id;
+  } else {
+      fdb_entry->bridge_type = SAI_BRIDGE_TYPE_1D;
+  } // SAI_OBJECT_TYPE_BRIDGE
+  fdb_entry->bridge_id = bridge_id;
+ */
 
 sai_status_t sai_adapter::create_fdb_entry(const sai_fdb_entry_t *fdb_entry,
                                            uint32_t attr_count,

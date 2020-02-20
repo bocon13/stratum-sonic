@@ -1274,7 +1274,8 @@ typedef enum _sai_port_stat_t
     /** SAI port stat if in vlan discards */
     SAI_PORT_STAT_IF_IN_VLAN_DISCARDS,
 
-    /** SAI port stat if out octets */
+    /** SAI
+     * port stat if out octets */
     SAI_PORT_STAT_IF_OUT_OCTETS,
 
     /** SAI port stat if out ucast pkts */

@@ -26,4 +26,32 @@ docker run --rm -it \
   stratum-sonic bash
 
 # Build the SAI adapter using Bazel
-bazel build -s //SAI-P4-BM/sai_adapter:sai_adapter
+bazel build -s //SAI-P4-BM/sai_adapter:sai_adapter #FIXME
+
+
+
+
+
+
+
+# Copying sai adapter to build server
+
+#step 1
+docker cp 5f7868a3fbad:/stratum/bazel-bin/SAI-P4-BM/sai_adapter/sai-p4_0.1.2_amd64.deb /tmp && \
+ssh p4dev "rm -f ~/sonic-buildimage/platform/p4/bin/sai-p4_0.1.2_amd64.deb ~/sonic-buildimage/target/debs/stretch/sai-p4_0.1.2_amd64.deb" && \
+scp /tmp/sai-p4_0.1.2_amd64.deb p4dev:~/sonic-buildimage/platform/p4/bin
+
+#step 2
+docker cp 5f7868a3fbad:/stratum/bazel-bin/stratum/hal/bin/bmv2/stratum_bmv2_0.1.1_amd64.deb /tmp && \
+ssh p4dev "rm -f ~/sonic-buildimage/platform/p4/bin/stratum_bmv2_0.1.1_amd64.deb ~/sonic-buildimage/target/debs/stretch/stratum_bmv2_0.1.1_amd64.deb" && \
+scp /tmp/stratum_bmv2_0.1.1_amd64.deb p4dev:~/sonic-buildimage/platform/p4/bin
+
+
+make all 
+
+# Preparing the Docker image
+scp target/docker-sonic-p4.gz admin@10.128.13.242:~ && ssh admin@10.128.13.242 "docker load < docker-sonic-p4.gz"
+
+
+
+Redis-server.sock to redis.sock

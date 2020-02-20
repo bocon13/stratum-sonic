@@ -50,6 +50,13 @@ cc_import(
   shared_library = "bmv2-bin/lib/libbmpi.so",
   alwayslink = 1,
 )
+filegroup(
+  name = "bmv2_deps",
+  srcs = [
+    "bmv2-bin/lib/libsimpleswitch_runner.so",
+    "bmv2-bin/lib/libbmpi.so"
+  ],
+)
 """)
 
 bmv2_configure = repository_rule(

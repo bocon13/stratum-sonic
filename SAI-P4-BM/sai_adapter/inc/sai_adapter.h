@@ -156,9 +156,26 @@ public:
                                     const sai_attribute_t *attr_list);
   static sai_status_t remove_switch(sai_object_id_t switch_id);
   static sai_status_t get_switch_attribute(sai_object_id_t switch_id,
-                                           sai_uint32_t attr_count,
+                                           uint32_t attr_count,
                                            sai_attribute_t *attr_list);
   static sai_status_t set_switch_attribute(sai_object_id_t switch_id, const sai_attribute_t *attr);
+  static sai_status_t get_switch_stats(
+            _In_ sai_object_id_t switch_id,
+            _In_ uint32_t number_of_counters,
+            _In_ const sai_stat_id_t *counter_ids,
+            _Out_ uint64_t *counters);
+
+  static sai_status_t get_switch_stats_ext(
+            _In_ sai_object_id_t switch_id,
+            _In_ uint32_t number_of_counters,
+            _In_ const sai_stat_id_t *counter_ids,
+            _In_ sai_stats_mode_t mode,
+            _Out_ uint64_t *counters);
+
+  static sai_status_t clear_switch_stats(
+            _In_ sai_object_id_t switch_id,
+            _In_ uint32_t number_of_counters,
+            _In_ const sai_stat_id_t *counter_ids);
 // saiport.h
   static sai_status_t create_port(sai_object_id_t *port_id,
                                   sai_object_id_t switch_id,
@@ -175,7 +192,63 @@ public:
                                         sai_attribute_t attribute);
   static sai_status_t get_parsed_port_attribute(Port_obj *port,
                                         sai_attribute_t *attribute);
-  static sai_status_t get_port_stats(sai_object_id_t port_id, uint32_t number_of_counters, const sai_port_stat_t *counter_ids, uint64_t *counters);
+  static sai_status_t get_port_stats(sai_object_id_t port_id, uint32_t number_of_counters, const sai_stat_id_t *counter_ids, uint64_t *counters);
+  static sai_status_t get_port_stats_ext(
+            sai_object_id_t port_id,
+            uint32_t number_of_counters,
+            const sai_stat_id_t *counter_ids,
+            sai_stats_mode_t mode,
+            uint64_t *counters);
+  static sai_status_t clear_port_stats(
+            sai_object_id_t port_id,
+            uint32_t number_of_counters,
+            const sai_stat_id_t *counter_ids);
+  static sai_status_t clear_port_all_stats(
+            sai_object_id_t port_id);
+  static sai_status_t create_port_pool(
+            sai_object_id_t *port_pool_id,
+            sai_object_id_t switch_id,
+            uint32_t attr_count,
+            const sai_attribute_t *attr_list);
+  static sai_status_t remove_port_pool(
+            sai_object_id_t port_pool_id);
+  static sai_status_t set_port_pool_attribute(
+            sai_object_id_t port_pool_id,
+            const sai_attribute_t *attr);
+  static sai_status_t get_port_pool_attribute(
+            sai_object_id_t port_pool_id,
+            uint32_t attr_count,
+            sai_attribute_t *attr_list);
+  static sai_status_t get_port_pool_stats(
+            sai_object_id_t port_pool_id,
+            uint32_t number_of_counters,
+            const sai_stat_id_t *counter_ids,
+            uint64_t *counters);
+  static sai_status_t get_port_pool_stats_ext(
+            sai_object_id_t port_pool_id,
+            uint32_t number_of_counters,
+            const sai_stat_id_t *counter_ids,
+            sai_stats_mode_t mode,
+            uint64_t *counters);
+  static sai_status_t clear_port_pool_stats(
+            sai_object_id_t port_pool_id,
+            uint32_t number_of_counters,
+            const sai_stat_id_t *counter_ids);
+  static sai_status_t create_port_serdes(
+            sai_object_id_t *port_serdes_id,
+            sai_object_id_t switch_id,
+            uint32_t attr_count,
+            const sai_attribute_t *attr_list);
+  static sai_status_t remove_port_serdes(
+            sai_object_id_t port_serdes_id);
+  static sai_status_t set_port_serdes_attribute(
+            sai_object_id_t port_serdes_id,
+            const sai_attribute_t *attr);
+  static sai_status_t get_port_serdes_attribute(
+            sai_object_id_t port_serdes_id,
+            uint32_t attr_count,
+            sai_attribute_t *attr_list);
+// saibridge.h
   static sai_status_t create_bridge(sai_object_id_t *bridge_id,
                                     sai_object_id_t switch_id,
                                     uint32_t attr_count,
@@ -194,6 +267,41 @@ public:
                                                 uint32_t attr_count,
                                                 sai_attribute_t *attr_list);
   static sai_status_t set_bridge_port_attribute(sai_object_id_t bridge_port_id, const sai_attribute_t *attr);
+  static sai_status_t get_bridge_port_stats(
+             sai_object_id_t bridge_port_id,
+             uint32_t number_of_counters,
+             const sai_stat_id_t *counter_ids,
+             uint64_t *counters);
+
+  static sai_status_t get_bridge_port_stats_ext(
+             sai_object_id_t bridge_port_id,
+             uint32_t number_of_counters,
+             const sai_stat_id_t *counter_ids,
+             sai_stats_mode_t mode,
+             uint64_t *counters);
+
+  static sai_status_t clear_bridge_port_stats(
+             sai_object_id_t bridge_port_id,
+             uint32_t number_of_counters,
+             const sai_stat_id_t *counter_ids);
+
+  static sai_status_t get_bridge_stats(
+             sai_object_id_t bridge_id,
+             uint32_t number_of_counters,
+             const sai_stat_id_t *counter_ids,
+             uint64_t *counters);
+
+  static sai_status_t get_bridge_stats_ext(
+             sai_object_id_t bridge_id,
+             uint32_t number_of_counters,
+             const sai_stat_id_t *counter_ids,
+             sai_stats_mode_t mode,
+             uint64_t *counters);
+
+  static sai_status_t clear_bridge_stats(
+             sai_object_id_t bridge_id,
+             uint32_t number_of_counters,
+             const sai_stat_id_t *counter_ids);
 // saifdb.h
   static sai_status_t create_fdb_entry(const sai_fdb_entry_t *fdb_entry,
                                        uint32_t attr_count,
@@ -218,7 +326,7 @@ public:
   static sai_status_t set_vlan_attribute(sai_object_id_t vlan_id,
                                          const sai_attribute_t *attr);
   static sai_status_t get_vlan_attribute(sai_object_id_t vlan_id,
-                                         const uint32_t attr_count,
+                                         uint32_t attr_count,
                                          sai_attribute_t *attr_list);
   static sai_status_t create_vlan_member(sai_object_id_t *vlan_member_id,
                                          sai_object_id_t switch_id,
@@ -228,16 +336,22 @@ public:
   static sai_status_t set_vlan_member_attribute(sai_object_id_t vlan_member_id,
                                                 const sai_attribute_t *attr);
   static sai_status_t get_vlan_member_attribute(sai_object_id_t vlan_member_id,
-                                                const uint32_t attr_count,
+                                                uint32_t attr_count,
                                                 sai_attribute_t *attr_list);
   static sai_status_t get_vlan_stats(sai_object_id_t vlan_id,
                                      uint32_t number_of_counters,
-                                     const sai_vlan_stat_t *counter_ids,
+                                     const sai_stat_id_t *counter_ids,
                                      uint64_t *counters);
+  static sai_status_t get_vlan_stats_ext(
+            sai_object_id_t vlan_id,
+            uint32_t number_of_counters,
+            const sai_stat_id_t *counter_ids,
+            sai_stats_mode_t mode,
+            uint64_t *counters);
   static sai_status_t clear_vlan_stats(sai_object_id_t vlan_id,
                                        uint32_t number_of_counters,
-                                       const sai_vlan_stat_t *counter_ids);
-  static sai_status_t create_vlan_members(sai_object_id_t switch_id,uint32_t object_count,const uint32_t *attr_count,const sai_attribute_t **attrs,sai_bulk_op_error_mode_t type,sai_object_id_t *object_id,sai_status_t *object_statuses);
+                                       const sai_stat_id_t *counter_ids);
+  static sai_status_t create_vlan_members(sai_object_id_t switch_id,uint32_t object_count,uint32_t *attr_count,const sai_attribute_t **attrs,sai_bulk_op_error_mode_t type,sai_object_id_t *object_id,sai_status_t *object_statuses);
 
   static sai_status_t remove_vlan_members(uint32_t object_count,const sai_object_id_t *object_id,sai_bulk_op_error_mode_t type,sai_status_t *object_statuses);
 
@@ -289,13 +403,28 @@ public:
   static sai_status_t set_virtual_router_attribute(sai_object_id_t virtual_router_id, const sai_attribute_t *attr);
   static sai_status_t get_virtual_router_attribute(sai_object_id_t virtual_router_id, uint32_t attr_count, sai_attribute_t *attr_list);
 // sairouterinterface.h
-  static sai_status_t create_router_interface (sai_object_id_t *lag_member_id,
+  static sai_status_t create_router_interface (sai_object_id_t *router_interface_id,
                                             sai_object_id_t switch_id,
                                             uint32_t attr_count,
                                             const sai_attribute_t *attr_list);
   static sai_status_t remove_router_interface (sai_object_id_t router_interface_id);
-  static sai_status_t set_router_interface_attribute(sai_object_id_t rif_id, const sai_attribute_t *attr);
-  static sai_status_t get_router_interface_attribute(sai_object_id_t rif_id, uint32_t attr_count, sai_attribute_t *attr_list);
+  static sai_status_t set_router_interface_attribute(sai_object_id_t router_interface_id, const sai_attribute_t *attr);
+  static sai_status_t get_router_interface_attribute(sai_object_id_t router_interface_id, uint32_t attr_count, sai_attribute_t *attr_list);
+  static sai_status_t get_router_interface_stats(
+            sai_object_id_t router_interface_id,
+            uint32_t number_of_counters,
+            const sai_stat_id_t *counter_ids,
+            uint64_t *counters);
+  static sai_status_t get_router_interface_stats_ext(
+            sai_object_id_t router_interface_id,
+            uint32_t number_of_counters,
+            const sai_stat_id_t *counter_ids,
+            sai_stats_mode_t mode,
+            uint64_t *counters);
+  static sai_status_t clear_router_interface_stats(
+            sai_object_id_t router_interface_id,
+            uint32_t number_of_counters,
+            const sai_stat_id_t *counter_ids);
 // saineighbor.h
   static sai_status_t create_neighbor_entry (const sai_neighbor_entry_t *neighbor_entry,
                                             uint32_t attr_count,
@@ -312,6 +441,38 @@ public:
                                          uint32_t attr_count,
                                          const sai_attribute_t *attr_list);
   static sai_status_t remove_route_entry(const sai_route_entry_t *route_entry);
+  static sai_status_t set_route_entry_attribute(
+            const sai_route_entry_t *route_entry,
+            const sai_attribute_t *attr);
+  static sai_status_t get_route_entry_attribute(
+            const sai_route_entry_t *route_entry,
+            uint32_t attr_count,
+            sai_attribute_t *attr_list);
+  static sai_status_t create_route_entries(
+            uint32_t object_count,
+            const sai_route_entry_t *route_entry,
+            const uint32_t *attr_count,
+            const sai_attribute_t **attr_list,
+            sai_bulk_op_error_mode_t mode,
+            sai_status_t *object_statuses);
+  static sai_status_t remove_route_entries(
+            uint32_t object_count,
+            const sai_route_entry_t *route_entry,
+            sai_bulk_op_error_mode_t mode,
+            sai_status_t *object_statuses);
+  static sai_status_t set_route_entries_attribute(
+            uint32_t object_count,
+            const sai_route_entry_t *route_entry,
+            const sai_attribute_t *attr_list,
+            sai_bulk_op_error_mode_t mode,
+            sai_status_t *object_statuses);
+  static sai_status_t get_route_entries_attribute(
+            uint32_t object_count,
+            const sai_route_entry_t *route_entry,
+            const uint32_t *attr_count,
+            sai_attribute_t **attr_list,
+            sai_bulk_op_error_mode_t mode,
+            sai_status_t *object_statuses);
 // saipolicer.h
   static sai_status_t create_policer(sai_object_id_t *policer_id,sai_object_id_t switch_id,uint32_t attr_count,const sai_attribute_t *attr_list);
   static sai_status_t remove_policer(sai_object_id_t policer_id);
@@ -445,9 +606,9 @@ public:
   static sai_status_t remove_buffer_pool(sai_object_id_t buffer_pool_id);
   static sai_status_t set_buffer_pool_attribute(sai_object_id_t buffer_pool_id,const sai_attribute_t *attr);
   static sai_status_t get_buffer_pool_attribute(sai_object_id_t buffer_pool_id,uint32_t attr_count,sai_attribute_t *attr_list);
-  static sai_status_t get_buffer_pool_stats(sai_object_id_t buffer_pool_id,uint32_t number_of_counters,const sai_buffer_pool_stat_t *counter_ids,uint64_t *counters);
+  static sai_status_t get_buffer_pool_stats(sai_object_id_t buffer_pool_id,uint32_t number_of_counters,const sai_stat_id_t *counter_ids,uint64_t *counters);
   static sai_status_t get_buffer_pool_stats_ext(sai_object_id_t buffer_pool_id,uint32_t number_of_counters,const sai_stat_id_t *counter_ids,sai_stats_mode_t mode,uint64_t *counters);
-  static sai_status_t clear_buffer_pool_stats(sai_object_id_t buffer_pool_id,uint32_t number_of_counters,const sai_buffer_pool_stat_t *counter_ids);
+  static sai_status_t clear_buffer_pool_stats(sai_object_id_t buffer_pool_id,uint32_t number_of_counters,const sai_stat_id_t *counter_ids);
   static sai_status_t create_ingress_priority_group(sai_object_id_t *ingress_priority_group_id,sai_object_id_t switch_id,uint32_t attr_count,const sai_attribute_t *attr_list);
   static sai_status_t remove_ingress_priority_group(sai_object_id_t ingress_priority_group_id);
   static sai_status_t set_ingress_priority_group_attribute(sai_object_id_t ingress_priority_group_id,const sai_attribute_t *attr);
@@ -558,7 +719,7 @@ private:
   get_bridge_id_from_fdb_entry(const sai_fdb_entry_t *fdb_entry);
   static void cpu_port_packetHandler(u_char *, const struct pcap_pkthdr *,
                             const u_char *);
-  static void build_fdb_entry(sai_mac_t mac, /*sai_fdb_entry_bridge_type_t bridge_type,*/ sai_vlan_id_t vlan_id, sai_object_id_t bridge_id, sai_fdb_entry_t *fdb_entry);
+  static void build_fdb_entry(sai_mac_t mac, sai_object_id_t bv_id, sai_fdb_entry_t *fdb_entry);
   static void learn_mac(u_char *, cpu_hdr_t *, int);
   static void lookup_hostif_trap_id_table(u_char *packet, cpu_hdr_t *, int);
   static void add_hostif_trap_id_table_entry(uint16_t,

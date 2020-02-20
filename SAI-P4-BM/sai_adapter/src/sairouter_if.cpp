@@ -137,9 +137,34 @@ sai_status_t sai_adapter::remove_router_interface (sai_object_id_t router_interf
   return SAI_STATUS_SUCCESS;
 }
 
-sai_status_t sai_adapter::set_router_interface_attribute(sai_object_id_t rif_id, const sai_attribute_t *attr) {
+sai_status_t sai_adapter::set_router_interface_attribute(sai_object_id_t router_interface_id, const sai_attribute_t *attr) {
 	return SAI_STATUS_NOT_IMPLEMENTED;
 }
-sai_status_t sai_adapter::get_router_interface_attribute(sai_object_id_t rif_id, uint32_t attr_count, sai_attribute_t *attr_list) {
+sai_status_t sai_adapter::get_router_interface_attribute(sai_object_id_t router_interface_id, uint32_t attr_count, sai_attribute_t *attr_list) {
 	return SAI_STATUS_NOT_IMPLEMENTED;
 }
+
+sai_status_t sai_adapter::get_router_interface_stats(
+     sai_object_id_t router_interface_id,
+     uint32_t number_of_counters,
+     const sai_stat_id_t *counter_ids,
+     uint64_t *counters) {
+  return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::get_router_interface_stats_ext(
+     sai_object_id_t router_interface_id,
+     uint32_t number_of_counters,
+     const sai_stat_id_t *counter_ids,
+     sai_stats_mode_t mode,
+     uint64_t *counters) {
+  return SAI_STATUS_NOT_IMPLEMENTED;
+}
+
+sai_status_t sai_adapter::clear_router_interface_stats(
+     sai_object_id_t router_interface_id,
+     uint32_t number_of_counters,
+     const sai_stat_id_t *counter_ids) {
+  return SAI_STATUS_NOT_IMPLEMENTED;
+}
+

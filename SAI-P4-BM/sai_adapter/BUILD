@@ -274,6 +274,7 @@ pkg_tar(
     deps = [
         ":sai-bin",
         ":sai-deps",
+        "//SAI:sai_headers_pkg",
     ],
 )
 
@@ -283,8 +284,9 @@ pkg_deb(
     built_using = "unzip (6.0.1)",
     data = ":debian-data",
     depends = [
-        "zlib1g-dev",
-        "unzip",
+        #"zlib1g-dev",
+        #"unzip",
+	#"libthrift-0.11.0", should we use this?
     ],
     description_file = "debian/description",
     homepage = "http://bazel.build",
